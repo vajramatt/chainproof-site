@@ -1,0 +1,32 @@
+# ChainProof
+
+> ChainProof is an open-source, local-first provenance ledger and investigation interface for AI agents. It records where agent evidence came from, makes the record searchable, and uses a hash chain to make later changes detectable.
+
+ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). The project is MIT licensed and designed to run on the developer's own machine without an account or hosted backend.
+
+## Canonical resources
+
+- [ChainProof website](https://chainproof.ai/): Product overview, capabilities, proof boundaries, and installation
+- [Source and documentation](https://github.com/vajramatt/chainproof): Go source, README, integrations, and contribution information
+- [Latest release](https://github.com/vajramatt/chainproof/releases/latest): Current downloadable release
+- [Provenance specification](https://github.com/vajramatt/chainproof/blob/main/spec/provenance-v1.md): Canonical event and proof format
+- [Security policy](https://github.com/vajramatt/chainproof/blob/main/SECURITY.md): Vulnerability reporting and supported versions
+- [License](https://github.com/vajramatt/chainproof/blob/main/LICENSE): MIT license
+
+## What ChainProof does
+
+- Collects supported local AI agent histories and accepts normalized events from agent harnesses
+- Stores canonical evidence in a local append-only SQLite ledger
+- Links entries with SHA-256 hashes so post-recording changes are detectable
+- Preserves provenance modes: observed, reported, imported, and derived
+- Provides a terminal cockpit, localhost web explorer, search, verification, and portable proof export
+- Works without sending prompts, code, or outputs to a ChainProof cloud service
+
+## Proof boundary
+
+A valid ChainProof hash chain demonstrates that the recorded evidence has not changed relative to a previously known chain head. It does not prove that a reported or imported claim was true, that an agent achieved its real-world goal, or that the collector observed events it labels as reported or imported.
+
+## Related work
+
+- [izakaya](https://izakaya.guru/): Matthew Williamson's terminal workspace and multi-repository navigator
+- [Matthew Williamson](https://crossinginto.ai/): Creator profile, advisory work, and other projects

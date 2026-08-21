@@ -19,6 +19,8 @@ is a small static site deployed as an assets-only Cloudflare Worker.
 - `wrangler.jsonc` owns the Worker name, asset directory, and custom domains.
 - Keep links, install commands, metadata, Open Graph assets, `robots.txt`, and
   `sitemap.xml` consistent when public URLs or product positioning change.
+- Keep `web/llms.txt`, visible FAQ answers, and JSON-LD factual, mutually
+  consistent, and linked to canonical first-party sources.
 - Avoid analytics, remote scripts, third-party fonts, or new build tooling
   unless explicitly requested.
 
