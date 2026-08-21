@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "chainproof-site",
+  "compatibility_date": "2026-08-21",
+  "assets": {"directory": "./web"},
+  "observability": {"enabled": true},
+  "env": {
+    "production": {
+      "name": "chainproof-site",
+      "routes": [
+        {"pattern": "chainproof.ai", "custom_domain": true},
+        {"pattern": "www.chainproof.ai", "custom_domain": true}
+      ]
+    }
+  }
+}
