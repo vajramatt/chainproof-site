@@ -46,7 +46,7 @@
     a{color:var(--cyan);text-decoration:none} a:hover{text-decoration:underline} button{font:inherit} :focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
     .wrap{width:min(1120px,calc(100% - 40px));margin:auto;position:relative}.narrow{width:min(760px,calc(100% - 40px));margin:auto;position:relative}
     .ribbon{height:42px;position:sticky;top:0;z-index:20;display:flex;align-items:stretch;background:var(--deep);border-bottom:1px solid var(--orange);overflow:hidden;font-size:12px;font-weight:800;letter-spacing:.03em}
-    .seg{display:flex;align-items:center;padding:0 14px;color:var(--deep);white-space:nowrap}.brand{background:var(--cyan)}.theme-label{background:var(--pink)}.runs{background:var(--raised);color:var(--fg)}.active{background:var(--yellow)}.agents{background:var(--blue)}.integrity{background:var(--green)}
+    .seg{display:flex;align-items:center;padding:0 14px;color:var(--deep);white-space:nowrap}.brand{background:var(--cyan)}.theme-label{background:var(--pink);border:0;cursor:pointer;font:inherit;font-weight:800}.theme-label:hover{filter:brightness(1.1);text-decoration:none}.runs{background:var(--raised);color:var(--fg)}.active{background:var(--yellow)}.agents{background:var(--blue)}.integrity{background:var(--green)}
     .ribbon-spacer{flex:1}.theme{border:0;background:transparent;color:var(--dim);cursor:pointer;padding:0 18px}.theme:hover{color:var(--cyan)}
     .hero{padding:96px 0 70px;text-align:center}.eyebrow,.section-kicker{color:var(--cyan);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:12px}.hero h1{font-size:clamp(42px,7vw,82px);line-height:1.02;letter-spacing:-.065em;margin:18px auto 24px;max-width:920px}.gradient{background:linear-gradient(100deg,var(--blue),var(--cyan),var(--pink),var(--green));background-size:200% auto;background-clip:text;color:transparent}.lead{font-size:clamp(17px,2.1vw,21px);color:var(--dim);max-width:730px;margin:0 auto 32px}.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}.button{display:inline-flex;align-items:center;gap:9px;padding:11px 17px;border:1px solid var(--line);background:var(--panel);color:var(--fg);font-weight:800}.button.primary{background:var(--cyan);border-color:var(--cyan);color:var(--deep)}.button:hover{text-decoration:none;border-color:var(--cyan);transform:translateY(-1px)}
     .install{margin:22px auto 0;display:flex;width:min(610px,100%);background:var(--deep);border:1px solid var(--line);text-align:left}.install code{padding:12px 15px;overflow:auto;white-space:nowrap;flex:1;color:var(--green)}.copy{border:0;border-left:1px solid var(--line);background:var(--panel);color:var(--dim);padding:0 14px;cursor:pointer}.copy:hover{color:var(--cyan)}
@@ -64,7 +64,7 @@
 </head>
 <body>
   <nav class="ribbon" aria-label="Site navigation">
-    <a class="seg brand" href="#top">⬡ CHAINPROOF</a><span class="seg theme-label" id="themeName">TOKYO NIGHT</span><span class="seg runs">27 RUNS</span><span class="seg active">1 ACTIVE</span><span class="seg agents">11 AGENTS</span><span class="seg integrity">100% INTEGRITY</span><span class="ribbon-spacer"></span><button class="theme" id="themeToggle" aria-label="Switch color theme">t&nbsp; lanterns</button>
+    <a class="seg brand" href="#top">⬡ CHAINPROOF</a><button class="seg theme-label" id="themeName" type="button" aria-label="Switch between Tokyo Night and Synthwave 84">TOKYO NIGHT</button><span class="seg runs">27 RUNS</span><span class="seg active">1 ACTIVE</span><span class="seg agents">11 AGENTS</span><span class="seg integrity">100% INTEGRITY</span><span class="ribbon-spacer"></span><button class="theme" id="themeToggle" type="button" aria-label="Switch color theme">t&nbsp; lanterns</button>
   </nav>
   <main id="top">
     <header class="hero wrap">
@@ -100,7 +100,7 @@
   <script>
     const root=document.documentElement,toggle=document.getElementById('themeToggle'),name=document.getElementById('themeName');
     function setTheme(theme){root.dataset.theme=theme;name.textContent=theme==='synthwave'?"SYNTHWAVE '84":"TOKYO NIGHT";document.querySelector('meta[name="theme-color"]').content=theme==='synthwave'?'#100820':'#1a1b26';localStorage.setItem('chainproof-theme',theme)}
-    setTheme(localStorage.getItem('chainproof-theme')||'tokyo-night');toggle.addEventListener('click',()=>setTheme(root.dataset.theme==='tokyo-night'?'synthwave':'tokyo-night'));
+    setTheme(localStorage.getItem('chainproof-theme')||'tokyo-night');toggle.addEventListener('click',()=>setTheme(root.dataset.theme==='tokyo-night'?'synthwave':'tokyo-night'));name.addEventListener('click',()=>toggle.click());
     document.addEventListener('keydown',event=>{if(event.key.toLowerCase()==='t'&&!/input|textarea/i.test(event.target.tagName))toggle.click()});
     document.getElementById('copyButton').addEventListener('click',async event=>{await navigator.clipboard.writeText(document.getElementById('installCommand').textContent);event.currentTarget.textContent='copied';setTimeout(()=>event.currentTarget.textContent='copy',1400)});
   </script>
