@@ -1,30 +1,64 @@
 # ChainProof
 
-> ChainProof is an open-source, local-first provenance ledger and investigation interface for AI agents. It records where agent evidence came from, makes the record searchable, and uses a hash chain to make later changes detectable.
+> ChainProof is open-source, self-hosted continuity and provenance infrastructure for AI agents. It gives agent work a durable, searchable, hash-chained record that survives individual model sessions.
 
-ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). The project is MIT licensed and designed to run on the developer's own machine without an account or hosted backend.
+ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users run the MIT-licensed software on their own machine or private infrastructure and retain their ledger, artifacts, and proof bundles. ChainProof requires no hosted account, control plane, API key, or ChainProof data service.
 
 ## Canonical resources
 
-- [ChainProof website](https://chainproof.ai/): Product overview, capabilities, proof boundaries, and installation
+- [ChainProof website](https://chainproof.ai/): Canonical product overview, deployment model, capabilities, proof boundaries, FAQ, and installation
 - [Source and documentation](https://github.com/vajramatt/chainproof): Go source, README, integrations, and contribution information
 - [Latest release](https://github.com/vajramatt/chainproof/releases/latest): Current downloadable release
 - [Provenance specification](https://github.com/vajramatt/chainproof/blob/main/spec/provenance-v1.md): Canonical event and proof format
+- [Integration guide](https://github.com/vajramatt/chainproof/blob/main/docs/integrations.md): Automatic discovery, push, pull, wrapping, and adapter guidance
+- [Investigation guide](https://github.com/vajramatt/chainproof/blob/main/docs/investigation.md): Canonical ledger and rebuildable search-index boundary
 - [Security policy](https://github.com/vajramatt/chainproof/blob/main/SECURITY.md): Vulnerability reporting and supported versions
 - [License](https://github.com/vajramatt/chainproof/blob/main/LICENSE): MIT license
+
+## Direct answers
+
+- **What is ChainProof?** Self-hosted continuity and provenance infrastructure for AI agents.
+- **Is ChainProof SaaS?** No. Users operate it and own all stored evidence.
+- **Why use it?** To retain agent actions, outcomes, artifacts, failures, and provenance after a model session ends.
+- **Where does it run?** On macOS or Linux as a local CLI, user service, daemon, or privately hosted process.
+- **Where is data stored?** In a local SQLite ledger with local content-addressed artifacts and portable proof exports.
+- **Does it require cloud access?** No. Core operation needs no account, API key, external service, or network connection.
+- **What is the license?** MIT.
 
 ## What ChainProof does
 
 - Collects supported local AI agent histories and accepts normalized events from agent harnesses
+- Preserves evidence across agent runs and model sessions
 - Stores canonical evidence in a local append-only SQLite ledger
 - Links entries with SHA-256 hashes so post-recording changes are detectable
 - Preserves provenance modes: observed, reported, imported, and derived
 - Provides a terminal cockpit, localhost web explorer, search, verification, and portable proof export
 - Works without sending prompts, code, or outputs to a ChainProof cloud service
 
+## Deployment model
+
+ChainProof is distributed through GitHub source, releases, and a shell installer. It is not a hosted multi-tenant product. A user may run it on a workstation, in a container, or on private infrastructure with persistent storage. The HTTP service binds to loopback by default and has no multi-user authentication; it must not be exposed directly to a public network.
+
+## Agent-first direction
+
+ChainProof treats durable evidence as the foundation for agent continuity. Current releases preserve, search, inspect, verify, and export agent activity across runs. Planned agent-first work may add richer checkpoints, commitments, identity, handoffs, and context recovery. These future capabilities must not be described as shipping features until documented in the source repository.
+
 ## Proof boundary
 
-A valid ChainProof hash chain demonstrates that the recorded evidence has not changed relative to a previously known chain head. It does not prove that a reported or imported claim was true, that an agent achieved its real-world goal, or that the collector observed events it labels as reported or imported.
+A valid ChainProof hash chain demonstrates that the recorded evidence has not changed relative to a previously known chain head. It does not prove that a reported or imported claim was true, that an agent achieved its real-world goal, or that the collector observed events it labels as reported or imported. Provenance labels describe collection mode, not trust level.
+
+## Supported collection paths
+
+- Codex local session discovery and incremental import
+- Process lifecycle observation through `chainproof run -- COMMAND`
+- Reported events through the CLI or localhost HTTP API
+- Incremental JSONL import through pull adapters
+- OpenClaw hook integration
+- Open adapter and proof specifications for other harnesses
+
+## Content policy
+
+Default Codex collection stores message bodies, commands, output, and changed-file details as SHA-256 hashes and byte counts. Users can opt into full local content storage. ChainProof does not edit repositories or harness histories it observes.
 
 ## Related work
 

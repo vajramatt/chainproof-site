@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1a1b26">
   <meta name="author" content="Matt Williamson">
-  <title>ChainProof — local provenance for AI agents</title>
-  <meta name="description" content="See what your AI agents did, where every record came from, and whether the history changed. Local-first, agent-agnostic, MIT licensed.">
+  <title>ChainProof — self-hosted continuity for AI agents</title>
+  <meta name="description" content="Give AI agents a durable, verifiable record of their actions across sessions. Open-source, self-hosted provenance infrastructure that runs on your machine.">
   <link rel="canonical" href="https://chainproof.ai/">
   <link rel="author" href="https://crossinginto.ai/">
+  <link rel="describedby" href="/llms.txt" type="text/plain">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://chainproof.ai/">
@@ -28,7 +29,71 @@
   <meta name="twitter:image:alt" content="ChainProof — know what your agents actually did.">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","@id":"https://chainproof.ai/#software","name":"ChainProof","url":"https://chainproof.ai/","description":"An open-source, local-first provenance ledger and investigation interface for AI agents.","applicationCategory":"DeveloperApplication","applicationSubCategory":"AI agent provenance and audit tool","operatingSystem":"macOS, Linux","softwareRequirements":"Go 1.24 or a prebuilt ChainProof binary","featureList":["local collection of supported AI agent histories","append-only hash-chained provenance ledger","searchable terminal and localhost web interfaces","portable proof export and independent chain verification","explicit observed, reported, imported, and derived provenance modes"],"keywords":"AI agent provenance, AI audit trail, coding agent logs, tamper-evident ledger, Codex, Claude Code, OpenClaw, local-first developer tools","codeRepository":"https://github.com/vajramatt/chainproof","downloadUrl":"https://github.com/vajramatt/chainproof/releases/latest","license":"https://github.com/vajramatt/chainproof/blob/main/LICENSE","image":"https://chainproof.ai/og.png","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@id":"https://crossinginto.ai/#person"}},{"@type":"Person","@id":"https://crossinginto.ai/#person","name":"Matthew Williamson","alternateName":"Matt Williamson","url":"https://crossinginto.ai/","jobTitle":"AI & Technology Advisor","sameAs":["https://github.com/vajramatt"]},{"@type":"WebSite","@id":"https://chainproof.ai/#website","name":"ChainProof","url":"https://chainproof.ai/","inLanguage":"en","about":{"@id":"https://chainproof.ai/#software"},"creator":{"@id":"https://crossinginto.ai/#person"}},{"@type":"FAQPage","@id":"https://chainproof.ai/#faq","mainEntity":[{"@type":"Question","name":"What is ChainProof?","acceptedAnswer":{"@type":"Answer","text":"ChainProof is an open-source, local-first provenance ledger and investigation interface for AI agents. It collects agent activity into a searchable evidence trail and hash chain on your own machine."}},{"@type":"Question","name":"What does ChainProof prove?","acceptedAnswer":{"@type":"Answer","text":"ChainProof can verify whether recorded evidence changed after it entered the hash chain. It preserves where each record came from, but it does not prove that a reported or imported claim was true."}},{"@type":"Question","name":"Does ChainProof send prompts or code to a hosted service?","acceptedAnswer":{"@type":"Answer","text":"No. The open-source ChainProof application stores its ledger locally, serves its interfaces on localhost, and can hash content instead of retaining full prompts, outputs, commands, or file details."}},{"@type":"Question","name":"Which AI agents work with ChainProof?","acceptedAnswer":{"@type":"Answer","text":"ChainProof automatically collects supported local histories such as Codex and exposes an open HTTP interface and provenance specification for Claude Code, OpenClaw, local models, and custom agent harnesses."}}]}]}
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://chainproof.ai/#software",
+        "name": "ChainProof",
+        "url": "https://chainproof.ai/",
+        "description": "Open-source, self-hosted continuity and provenance infrastructure that gives AI agents a durable, verifiable record of actions across sessions.",
+        "applicationCategory": "DeveloperApplication",
+        "applicationSubCategory": "AI agent continuity and provenance",
+        "operatingSystem": "macOS, Linux",
+        "softwareRequirements": "Go 1.24 or a prebuilt ChainProof binary",
+        "featureList": [
+          "durable agent records across sessions",
+          "local collection of supported AI agent histories",
+          "append-only hash-chained provenance ledger",
+          "searchable terminal and localhost web interfaces",
+          "portable proof export and independent chain verification",
+          "explicit observed, reported, imported, and derived provenance modes",
+          "self-hosted operation with no required ChainProof service"
+        ],
+        "keywords": "AI agent continuity, AI agent provenance, self-hosted AI infrastructure, durable agent history, AI audit trail, tamper-evident ledger, Codex, Claude Code, OpenClaw, local-first developer tools",
+        "codeRepository": "https://github.com/vajramatt/chainproof",
+        "downloadUrl": "https://github.com/vajramatt/chainproof/releases/latest",
+        "softwareHelp": "https://github.com/vajramatt/chainproof#readme",
+        "license": "https://github.com/vajramatt/chainproof/blob/main/LICENSE",
+        "image": "https://chainproof.ai/og.png",
+        "isAccessibleForFree": true,
+        "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+        "author": {"@id":"https://crossinginto.ai/#person"}
+      },
+      {
+        "@type": "Person",
+        "@id": "https://crossinginto.ai/#person",
+        "name": "Matthew Williamson",
+        "alternateName": "Matt Williamson",
+        "url": "https://crossinginto.ai/",
+        "jobTitle": "AI & Technology Advisor",
+        "sameAs": ["https://github.com/vajramatt"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://chainproof.ai/#website",
+        "name": "ChainProof",
+        "url": "https://chainproof.ai/",
+        "inLanguage": "en",
+        "about": {"@id":"https://chainproof.ai/#software"},
+        "creator": {"@id":"https://crossinginto.ai/#person"}
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://chainproof.ai/#faq",
+        "mainEntity": [
+          {"@type":"Question","name":"What is ChainProof?","acceptedAnswer":{"@type":"Answer","text":"ChainProof is open-source, self-hosted continuity and provenance infrastructure for AI agents. It turns agent activity into a durable, searchable evidence trail and hash chain owned by whoever runs it."}},
+          {"@type":"Question","name":"Is ChainProof a SaaS product?","acceptedAnswer":{"@type":"Answer","text":"No. ChainProof has no required hosted account, control plane, or data service. Users run the MIT-licensed software on their own machine or private infrastructure and keep their ledger, artifacts, and proof bundles."}},
+          {"@type":"Question","name":"How does ChainProof support work across sessions?","acceptedAnswer":{"@type":"Answer","text":"ChainProof preserves agent actions, outcomes, artifacts, failures, and provenance in a durable local ledger after a model session ends. That record can be searched, inspected, exported, and used as evidence for later work."}},
+          {"@type":"Question","name":"What does ChainProof prove?","acceptedAnswer":{"@type":"Answer","text":"ChainProof can verify whether recorded evidence changed after it entered a hash chain. It preserves where each record came from, but it does not prove that a reported or imported claim was true or that an agent completed its real-world goal."}},
+          {"@type":"Question","name":"Does ChainProof send prompts or code to a hosted service?","acceptedAnswer":{"@type":"Answer","text":"No. ChainProof stores its ledger locally, serves its interfaces on localhost by default, and can retain hashes and byte counts instead of full prompts, outputs, commands, or file details."}},
+          {"@type":"Question","name":"Can ChainProof run on a server?","acceptedAnswer":{"@type":"Answer","text":"Yes. ChainProof can run as a foreground daemon, user service, or privately hosted process with persistent storage. Its current HTTP interface is loopback-only by default and should not be exposed directly to a public network."}},
+          {"@type":"Question","name":"Which AI agents work with ChainProof?","acceptedAnswer":{"@type":"Answer","text":"ChainProof automatically collects supported local histories such as Codex and provides process wrapping, an open HTTP interface, incremental import, and a provenance specification for Claude Code, OpenClaw, local models, and custom agent harnesses."}}
+        ]
+      }
+    ]
+  }
   </script>
   <style>
     :root {
@@ -70,9 +135,9 @@
   </nav>
   <main id="top">
     <header class="hero wrap">
-      <div class="eyebrow">// open-source agent provenance</div>
-      <h1>Know what your agents <span class="gradient">actually did.</span></h1>
-      <p class="lead">ChainProof turns local agent histories into a searchable, tamper-evident evidence trail—without sending your code, prompts, or outputs to somebody else’s cloud.</p>
+      <div class="eyebrow">// self-hosted agent continuity</div>
+      <h1>Give agents a record that <span class="gradient">outlives the session.</span></h1>
+      <p class="lead">ChainProof gives AI agents a durable, verifiable chain of their actions across sessions—open source, local first, and owned by whoever runs it.</p>
       <div class="actions"><a class="button primary" href="https://github.com/vajramatt/chainproof">View source on GitHub →</a><a class="button" href="https://github.com/vajramatt/chainproof#install">Read the docs</a></div>
       <div class="install"><code id="installCommand">curl -fsSL https://chainproof.ai/install.sh | sh</code><button class="copy" id="copyButton" aria-label="Copy install command">copy</button></div>
     </header>
@@ -88,19 +153,19 @@
       </div>
     </div>
 
-    <section><div class="wrap"><div class="section-kicker">// the missing layer</div><h2>Agents move fast.<br>The record should keep up.</h2><p class="section-lead">Logs tell you that something ran. ChainProof gives a development team the trail they need to understand it, find it, and verify it later.</p><div class="three"><article class="card"><span class="num">01 / SEE</span><h3>Reconstruct the run</h3><p>Prompts, model output, tool calls, files, outcomes, timing, harness, and model—one navigable timeline.</p></article><article class="card"><span class="num">02 / FIND</span><h3>Search the evidence</h3><p>Find the command that failed, the agent that changed a file, or every run touching an incident.</p></article><article class="card"><span class="num">03 / PROVE</span><h3>Verify the history</h3><p>Every entry joins a hash chain. Export a proof bundle and verify integrity without trusting a server.</p></article></div></div></section>
+    <section><div class="wrap"><div class="section-kicker">// continuity starts with evidence</div><h2>Session ends.<br>The record should not.</h2><p class="section-lead">Each run adds to a durable record of what an agent attempted, changed, produced, and learned—without depending on one model context window or vendor transcript.</p><div class="three"><article class="card"><span class="num">01 / RECORD</span><h3>Preserve the work</h3><p>Inputs, model output, tool calls, files, outcomes, timing, harness, and model—one lasting evidence trail.</p></article><article class="card"><span class="num">02 / RECOVER</span><h3>Find what matters</h3><p>Find the command that failed, the agent that changed a file, or every past run touching an objective.</p></article><article class="card"><span class="num">03 / PROVE</span><h3>Verify the history</h3><p>Every entry joins a hash chain. Export a proof bundle and verify integrity without trusting a server.</p></article></div></div></section>
 
-    <section><div class="wrap"><div class="section-kicker">// local by construction</div><h2>Your agents. Your machine. Your evidence.</h2><p class="section-lead">One Go binary watches supported histories, accepts events from any harness, and serves two views over a local SQLite store.</p><div class="flow"><div class="node"><b>AGENTS + HARNESSES</b>Codex · Claude Code<br>OpenClaw · local AI<br>anything with HTTP</div><div class="arrow">→</div><div class="node"><b>CHAINPROOF</b>collect · normalize<br>hash · index<br>verify · export</div><div class="arrow">→</div><div class="node"><b>LOCAL VIEWS</b>rich terminal UI<br>localhost web explorer<br>SQLite + proof bundles</div></div></div></section>
+    <section><div class="wrap"><div class="section-kicker">// self-hosted, not saas</div><h2>Clone it. Run it anywhere.<br>Keep it yours.</h2><p class="section-lead">One Go binary runs on your workstation or private infrastructure. No ChainProof account, hosted control plane, or required data service.</p><div class="flow"><div class="node"><b>AGENTS + HARNESSES</b>Codex · Claude Code<br>OpenClaw · local AI<br>anything with HTTP</div><div class="arrow">→</div><div class="node"><b>CHAINPROOF</b>collect · normalize<br>hash · index<br>verify · export</div><div class="arrow">→</div><div class="node"><b>YOUR INFRASTRUCTURE</b>terminal + private web<br>SQLite + artifacts<br>portable proof bundles</div></div></div></section>
 
     <section><div class="wrap truth"><div><div class="section-kicker">// evidence, not theater</div><h2>Integrity is not the same as truth.</h2><p class="section-lead">ChainProof says what it can prove and preserves where every claim came from. A valid hash chain proves the record has not changed; it does not magically prove an imported claim was true.</p><p class="quote">“Make the provenance boundary visible.”<small>That is the product, not a footnote.</small></p></div><ul class="truth-list"><li><b class="observed">OBSERVED</b> ChainProof witnessed the event directly.</li><li><b class="reported">REPORTED</b> A connected harness sent the event.</li><li><b class="imported">IMPORTED</b> Recovered from an existing history.</li><li><b class="derived">DERIVED</b> Computed from other evidence.</li></ul></div></section>
 
     <section><div class="wrap"><div class="section-kicker">// works with the stack you have</div><h2>Model-agnostic. Harness-agnostic.</h2><div class="three"><article class="card"><h3>Automatic collection</h3><p>Run the daemon and ChainProof continuously discovers supported local agent histories. Codex works today.</p></article><article class="card"><h3>Push or pull</h3><p>Harnesses can send normalized events to localhost, or adapters can pull histories from tools that already persist them.</p></article><article class="card"><h3>Open interface</h3><p>Use the HTTP API and provenance spec for Claude Code, Kimi, Qwen, your local model, or the next tool. <strong>No provider lock-in.</strong></p></article></div></div></section>
 
-    <section id="faq"><div class="narrow"><div class="section-kicker">// straight answers</div><h2>ChainProof, without the hand-waving.</h2><div class="faq"><details open><summary>What is ChainProof?</summary><p>ChainProof is an open-source, local-first provenance ledger and investigation interface for AI agents. It turns agent activity into a searchable evidence trail and hash chain on your own machine.</p></details><details><summary>What does ChainProof prove?</summary><p>It can verify whether recorded evidence changed after entering the chain and preserves where each record came from. It does not prove that a reported or imported claim was true.</p></details><details><summary>Does my code or prompt history leave my machine?</summary><p>No. The OSS application stores its ledger locally, serves its interfaces on localhost, and can keep only hashes and byte counts instead of full content.</p></details><details><summary>Which agents does it support?</summary><p>ChainProof automatically collects supported local histories such as Codex. Its open HTTP interface and provenance specification can connect Claude Code, OpenClaw, local models, and custom harnesses.</p></details></div></div></section>
+    <section id="faq"><div class="narrow"><div class="section-kicker">// straight answers</div><h2>ChainProof, without the hand-waving.</h2><div class="faq"><details open><summary>What is ChainProof?</summary><p>ChainProof is open-source, self-hosted continuity and provenance infrastructure for AI agents. It turns agent activity into a durable, searchable evidence trail and hash chain owned by whoever runs it.</p></details><details><summary>Is ChainProof a SaaS product?</summary><p>No. ChainProof has no required hosted account, control plane, or data service. Run the MIT-licensed software on your own machine or private infrastructure and keep your ledger, artifacts, and proof bundles.</p></details><details><summary>How does ChainProof support work across sessions?</summary><p>ChainProof preserves agent actions, outcomes, artifacts, failures, and provenance after a model session ends. That durable record can be searched, inspected, exported, and used as evidence for later work.</p></details><details><summary>What does ChainProof prove?</summary><p>It can verify whether recorded evidence changed after entering a hash chain and preserves where each record came from. It does not prove that a reported or imported claim was true or that an agent completed its real-world goal.</p></details><details><summary>Does my code or prompt history leave my machine?</summary><p>No. ChainProof stores its ledger locally, serves its interfaces on localhost by default, and can retain only hashes and byte counts instead of full content.</p></details><details><summary>Can ChainProof run on a server?</summary><p>Yes. Run it as a foreground daemon, user service, or privately hosted process with persistent storage. Its current HTTP interface is loopback-only by default and should not be exposed directly to a public network.</p></details><details><summary>Which agents does it support?</summary><p>ChainProof automatically collects supported local histories such as Codex. Process wrapping, an open HTTP interface, incremental import, and the provenance specification support Claude Code, OpenClaw, local models, and custom harnesses.</p></details></div></div></section>
 
-    <section class="final"><div class="narrow"><div class="section-kicker">// keep the receipts</div><h2>Give every agent run a history you can inspect.</h2><p>Open source. MIT licensed. Local first. Built in Go.</p><div class="actions"><a class="button primary" href="https://github.com/vajramatt/chainproof">Get ChainProof on GitHub →</a><a class="button" href="https://github.com/vajramatt/chainproof/releases/latest">Latest release</a></div></div></section>
+    <section class="final"><div class="narrow"><div class="section-kicker">// continuity you control</div><h2>Give agent work a history that survives the session.</h2><p>Open source. MIT licensed. Self-hosted. Built in Go.</p><div class="actions"><a class="button primary" href="https://github.com/vajramatt/chainproof">Get ChainProof on GitHub →</a><a class="button" href="https://github.com/vajramatt/chainproof/releases/latest">Latest release</a></div></div></section>
   </main>
-  <footer><div class="wrap foot"><span>⬡ CHAINPROOF &nbsp; local agent provenance</span><span class="foot-links"><a href="https://github.com/vajramatt/chainproof">source</a><a href="https://github.com/vajramatt/chainproof/blob/main/LICENSE">MIT</a><a href="https://github.com/vajramatt/chainproof/blob/main/SECURITY.md">security</a><a href="https://izakaya.guru/">izakaya</a><a href="https://crossinginto.ai/">Matt Williamson</a></span></div></footer>
+  <footer><div class="wrap foot"><span>⬡ CHAINPROOF &nbsp; self-hosted agent continuity</span><span class="foot-links"><a href="https://github.com/vajramatt/chainproof">source</a><a href="https://github.com/vajramatt/chainproof/blob/main/LICENSE">MIT</a><a href="https://github.com/vajramatt/chainproof/blob/main/SECURITY.md">security</a><a href="https://izakaya.guru/">izakaya</a><a href="https://crossinginto.ai/">Matt Williamson</a></span></div></footer>
   <script>
     const root=document.documentElement,toggle=document.getElementById('themeToggle'),name=document.getElementById('themeName');
     function setTheme(theme){root.dataset.theme=theme;name.textContent=theme==='synthwave'?"SYNTHWAVE '84":"TOKYO NIGHT";document.querySelector('meta[name="theme-color"]').content=theme==='synthwave'?'#100820':'#1a1b26';localStorage.setItem('chainproof-theme',theme)}
