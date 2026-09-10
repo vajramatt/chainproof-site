@@ -10,6 +10,8 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - [Source and documentation](https://github.com/vajramatt/chainproof): Go source, README, integrations, and contribution information
 - [Latest release](https://github.com/vajramatt/chainproof/releases/latest): Current downloadable release
 - [Provenance specification](https://github.com/vajramatt/chainproof/blob/main/spec/provenance-v1.md): Canonical event and proof format
+- [Continuity specification](https://github.com/vajramatt/chainproof/blob/main/spec/continuity-v1.md): Durable mission checkpoints and portable continuity proofs
+- [Agent Work Protocol](https://github.com/vajramatt/chainproof/blob/main/spec/agent-work-v1.md): Verified context, environment contract, native Codex work, and queue acquisition
 - [Integration guide](https://github.com/vajramatt/chainproof/blob/main/docs/integrations.md): Automatic discovery, push, pull, wrapping, and adapter guidance
 - [Investigation guide](https://github.com/vajramatt/chainproof/blob/main/docs/investigation.md): Canonical ledger and rebuildable search-index boundary
 - [Security policy](https://github.com/vajramatt/chainproof/blob/main/SECURITY.md): Vulnerability reporting and supported versions
@@ -20,6 +22,8 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - **What is ChainProof?** Self-hosted continuity and provenance infrastructure for AI agents.
 - **Is ChainProof SaaS?** No. Users operate it and own all stored evidence.
 - **Why use it?** To retain agent actions, outcomes, artifacts, failures, and provenance after a model session ends.
+- **Can agents resume long-running work?** Yes. Durable missions connect runs through proof-bound checkpoints, stable commitments, next actions, blockers, and verified context.
+- **Can multiple local agents coordinate?** Yes. Current source provides atomic mission acquisition, expiring leases, renewal, release, and handoff.
 - **Where does it run?** On macOS or Linux as a local CLI, user service, daemon, or privately hosted process.
 - **Where is data stored?** In a local SQLite ledger with local content-addressed artifacts and portable proof exports.
 - **Does it require cloud access?** No. Core operation needs no account, API key, external service, or network connection.
@@ -29,6 +33,12 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 
 - Collects supported local AI agent histories and accepts normalized events from agent harnesses
 - Preserves evidence across agent runs and model sessions
+- Links runs into durable missions with append-only checkpoints anchored to exact verified run-proof prefixes
+- Compiles bounded verified context for safe resume and exposes uncheckpointed work for explicit recovery review
+- Coordinates local workers through atomic queue acquisition, expiring leases, renewal, release, and handoff
+- Runs Codex natively with mission context, automatic lease lifecycle, and checkpoint guidance
+- Refuses mission completion with unreconciled tails and prevents later appends to completed mission runs
+- Exports portable continuity proofs containing checkpoint history and every anchored run prefix
 - Stores canonical evidence in a local append-only SQLite ledger
 - Links entries with SHA-256 hashes so post-recording changes are detectable
 - Preserves provenance modes: observed, reported, imported, and derived
@@ -39,9 +49,19 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 
 ChainProof is distributed through GitHub source, releases, and a shell installer. It is not a hosted multi-tenant product. A user may run it on a workstation, in a container, or on private infrastructure with persistent storage. The HTTP service binds to loopback by default and has no multi-user authentication; it must not be exposed directly to a public network.
 
-## Agent-first direction
+## Current source status
 
-ChainProof treats durable evidence as the foundation for agent continuity. Current releases preserve, search, inspect, verify, and export agent activity across runs. Planned agent-first work may add richer checkpoints, commitments, identity, handoffs, and context recovery. These future capabilities must not be described as shipping features until documented in the source repository.
+Current GitHub source contains the complete local agent-first loop: mission queue, atomic lease, verified context, native Codex work, checkpoint, explicit recovery reconciliation, and terminal completion. Latest published binaries may trail source until the next release is packaged. Consult [GitHub releases](https://github.com/vajramatt/chainproof/releases/latest) for exact release availability.
+
+## Coming next
+
+- Package and harden the agent-first release
+- Add richer native agent integrations beyond Codex
+- Deepen the embedded local web explorer across timelines, diffs, artifacts, failures, comparisons, and proof reports
+- Add durable remote-executor handoff and multi-host lease coordination
+- Add signed agent identity while preserving existing proof boundaries
+
+Roadmap items are direction, not shipped claims or delivery commitments.
 
 ## Proof boundary
 
