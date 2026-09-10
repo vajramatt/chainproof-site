@@ -1,8 +1,8 @@
 # chainproof.ai
 
-The static public website for [ChainProof](https://github.com/vajramatt/chainproof), a local-first provenance ledger for AI agents.
+The static public website for [ChainProof](https://github.com/vajramatt/chainproof), local-first continuity and provenance infrastructure for AI agents.
 
-The site is deliberately small: one HTML page, a few static assets, and no application backend. It is served by Cloudflare as an assets-only Worker.
+The site is deliberately small: one HTML page, a few static assets, and no application backend. It is served by Cloudflare as an assets-only Worker. Visible copy, JSON-LD, Open Graph metadata, and `llms.txt` distinguish released features from capabilities available only on current `main`.
 
 ## Develop
 

@@ -1,6 +1,6 @@
 # ChainProof
 
-> ChainProof is open-source, self-hosted continuity and provenance infrastructure for AI agents. It gives agent work a durable, searchable, hash-chained record that survives individual model sessions.
+> ChainProof is open-source, local-first continuity and provenance infrastructure for AI agents. It gives agents durable identity, verified context, and a searchable, hash-chained record that survives individual model sessions.
 
 ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users run the MIT-licensed software on their own machine or private infrastructure and retain their ledger, artifacts, and proof bundles. ChainProof requires no hosted account, control plane, API key, or ChainProof data service.
 
@@ -24,8 +24,10 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - **Why use it?** To retain agent actions, outcomes, artifacts, failures, and provenance after a model session ends.
 - **Can agents resume long-running work?** Yes. Durable missions connect runs through proof-bound checkpoints, stable commitments, next actions, blockers, and verified context.
 - **Can multiple local agents coordinate?** Yes. ChainProof v0.6.0 provides atomic mission acquisition, expiring leases, renewal, release, and handoff.
+- **How does an agent identify itself?** Current main provides self-created, owner-only local profiles with stable key-derived agent IDs, mutable display names, per-run worker IDs, and mission roles.
 - **Where does it run?** On macOS or Linux as a local CLI, user service, daemon, or privately hosted process.
 - **Where is data stored?** In a local SQLite ledger with local content-addressed artifacts and portable proof exports.
+- **Why SQLite?** SQLite provides atomic appends, concurrent local coordination, leases, indexes, and fast queries. Portable structured files are the interchange format; generated Markdown is a readable view, not canonical coordination state.
 - **Does it require cloud access?** No. Core operation needs no account, API key, external service, or network connection.
 - **What is the license?** MIT.
 
@@ -33,6 +35,8 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 
 - Collects supported local AI agent histories and accepts normalized events from agent harnesses
 - Preserves evidence across agent runs and model sessions
+- Creates stable local agent identities without accounts or human registration
+- Separates stable agent ID, mutable display name, ephemeral worker ID, and mission role
 - Links runs into durable missions with append-only checkpoints anchored to exact verified run-proof prefixes
 - Compiles bounded verified context for safe resume and exposes uncheckpointed work for explicit recovery review
 - Coordinates local workers through atomic queue acquisition, expiring leases, renewal, release, and handoff
@@ -45,6 +49,11 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - Provides a terminal cockpit, localhost web explorer, search, verification, and portable proof export
 - Works without sending prompts, code, or outputs to a ChainProof cloud service
 
+Current identity attribution is hash-bound but unsigned. Stable ID is an
+Ed25519 public-key fingerprint; it is not authentication, proof of private-key
+possession, or proof that the named agent produced a claim. Anyone operating as
+the same local OS user remains inside the same trust boundary.
+
 ## Deployment model
 
 ChainProof is distributed through GitHub source, releases, and a shell installer. It is not a hosted multi-tenant product. A user may run it on a workstation, in a container, or on private infrastructure with persistent storage. The HTTP service binds to loopback by default and has no multi-user authentication; it must not be exposed directly to a public network.
@@ -53,12 +62,20 @@ ChainProof is distributed through GitHub source, releases, and a shell installer
 
 ChainProof v0.6.0 ships the complete local agent-first loop: mission queue, atomic lease, verified context, native Codex work, checkpoint, explicit recovery reconciliation, and terminal completion. Download source and platform binaries from [GitHub releases](https://github.com/vajramatt/chainproof/releases/tag/v0.6.0).
 
+## Current main
+
+Current main adds self-created key-derived agent profiles, `chainproof whoami`,
+stable agent IDs, mutable display names, per-run worker IDs, mission roles,
+automatic lease-holder identity, and hash-bound run/event attribution. These
+features have landed in source but are not part of v0.6.0 binaries.
+
 ## Coming next
 
+- Make agent discovery, bootstrap, initialization, and self-service smoother
 - Add richer native agent integrations beyond Codex
+- Add portable filesystem mission workspaces using structured proof records and generated Markdown views while retaining SQLite for live coordination
 - Deepen the embedded local web explorer across timelines, diffs, artifacts, failures, comparisons, and proof reports
-- Add durable remote-executor handoff and multi-host lease coordination
-- Add signed agent identity while preserving existing proof boundaries
+- Add signed agent attestations, key recovery, and private multi-host coordination while preserving existing proof boundaries
 
 Roadmap items are direction, not shipped claims or delivery commitments.
 
