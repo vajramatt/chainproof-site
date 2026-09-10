@@ -23,7 +23,7 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - **Is ChainProof SaaS?** No. Users operate it and own all stored evidence.
 - **Why use it?** To retain agent actions, outcomes, artifacts, failures, and provenance after a model session ends.
 - **Can agents resume long-running work?** Yes. Durable missions connect runs through proof-bound checkpoints, stable commitments, next actions, blockers, and verified context.
-- **Can multiple local agents coordinate?** Yes. Current source provides atomic mission acquisition, expiring leases, renewal, release, and handoff.
+- **Can multiple local agents coordinate?** Yes. ChainProof v0.6.0 provides atomic mission acquisition, expiring leases, renewal, release, and handoff.
 - **Where does it run?** On macOS or Linux as a local CLI, user service, daemon, or privately hosted process.
 - **Where is data stored?** In a local SQLite ledger with local content-addressed artifacts and portable proof exports.
 - **Does it require cloud access?** No. Core operation needs no account, API key, external service, or network connection.
@@ -49,13 +49,12 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 
 ChainProof is distributed through GitHub source, releases, and a shell installer. It is not a hosted multi-tenant product. A user may run it on a workstation, in a container, or on private infrastructure with persistent storage. The HTTP service binds to loopback by default and has no multi-user authentication; it must not be exposed directly to a public network.
 
-## Current source status
+## Current release
 
-Current GitHub source contains the complete local agent-first loop: mission queue, atomic lease, verified context, native Codex work, checkpoint, explicit recovery reconciliation, and terminal completion. Latest published binaries may trail source until the next release is packaged. Consult [GitHub releases](https://github.com/vajramatt/chainproof/releases/latest) for exact release availability.
+ChainProof v0.6.0 ships the complete local agent-first loop: mission queue, atomic lease, verified context, native Codex work, checkpoint, explicit recovery reconciliation, and terminal completion. Download source and platform binaries from [GitHub releases](https://github.com/vajramatt/chainproof/releases/tag/v0.6.0).
 
 ## Coming next
 
-- Package and harden the agent-first release
 - Add richer native agent integrations beyond Codex
 - Deepen the embedded local web explorer across timelines, diffs, artifacts, failures, comparisons, and proof reports
 - Add durable remote-executor handoff and multi-host lease coordination
