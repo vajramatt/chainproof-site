@@ -7,9 +7,8 @@ is a small static site deployed as an assets-only Cloudflare Worker.
 
 - The OSS CLI, TUI, local web explorer, proof format, integrations, and releases
   live in `../chainproof` and at `github.com/vajramatt/chainproof`.
-- The hosted multi-tenant application lives in `../chainproof-saas`.
-- Do not move application code, the embedded local explorer, SaaS features, or
-  product data into this repository.
+- Do not move application code, the embedded local explorer, accounts,
+  billing, tenancy, hosted storage, or product data into this repository.
 
 ## Structure and conventions
 

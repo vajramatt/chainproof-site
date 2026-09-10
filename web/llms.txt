@@ -56,7 +56,7 @@ the same local OS user remains inside the same trust boundary.
 
 ## Deployment model
 
-ChainProof is distributed through GitHub source, releases, and a shell installer. It is not a hosted multi-tenant product. A user may run it on a workstation, in a container, or on private infrastructure with persistent storage. The HTTP service binds to loopback by default and has no multi-user authentication; it must not be exposed directly to a public network.
+ChainProof is distributed through GitHub source, releases, and a shell installer. It is not a hosted multi-tenant product. A user may run it on a workstation, in a container, or on private infrastructure with persistent storage. Current HTTP service accepts only loopback listen addresses and has no multi-user authentication. Public HTTP exposure is unsupported.
 
 ## Current release
 
@@ -78,6 +78,33 @@ features have landed in source but are not part of v0.6.0 binaries.
 - Add signed agent attestations, key recovery, and private multi-host coordination while preserving existing proof boundaries
 
 Roadmap items are direction, not shipped claims or delivery commitments.
+
+## Path to autonomous use
+
+ChainProof supports controlled local pilots with cooperative agents today.
+Before broader unattended use, project plans these release gates:
+
+1. Machine-readable, idempotent bootstrap and diagnostics through planned
+   `chainproof init --json`, `chainproof capabilities --json`, and `chainproof
+   doctor --json`, plus stable exit codes and structured errors
+2. Independent-process concurrency tests, WAL and forced-termination recovery,
+   corrupted-profile and lost-key behavior, upgrades, backup, and restore
+3. Clean macOS and Linux validation of release archives, checksums, installer,
+   profile creation, service, TUI, loopback explorer, and uninstall behavior
+4. Portable mission import and rebuild from structured JSON/JSONL proof records,
+   artifacts, verification manifests, and generated Markdown summaries
+5. Agent-readable integration packages for Codex, Claude Code, OpenClaw, and
+   generic harnesses
+
+Target lifecycle:
+
+`discover -> identify -> inspect -> acquire -> work -> checkpoint -> verify -> handoff`
+
+Current identity work should enter next release only after machine-readable
+bootstrap, multi-process and crash tests, and clean-install validation pass.
+Signed attestations, key recovery, and private multi-host coordination are later
+work. Public exposure of unauthenticated loopback HTTP is not part of autonomous
+readiness.
 
 ## Proof boundary
 
