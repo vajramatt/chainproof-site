@@ -38,6 +38,8 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - Creates stable local agent identities without accounts or human registration
 - Separates stable agent ID, mutable display name, ephemeral worker ID, and mission role
 - Exposes machine-readable capability discovery, idempotent initialization, and non-mutating diagnostics
+- Preserves resolved custom ledger, identity, and collector paths in native user services across login
+- Emits versioned structured CLI failures with stable command, usage, and verification exit classes
 - Links runs into durable missions with append-only checkpoints anchored to exact verified run-proof prefixes
 - Compiles bounded verified context for safe resume and exposes uncheckpointed work for explicit recovery review
 - Coordinates local workers through atomic queue acquisition, expiring leases, renewal, release, and handoff
@@ -69,12 +71,15 @@ Current main adds self-created key-derived agent profiles, `chainproof whoami`,
 stable agent IDs, mutable display names, per-run worker IDs, mission roles,
 automatic lease-holder identity, hash-bound run/event attribution,
 `chainproof capabilities --json`, idempotent `chainproof init --json`, and
-non-mutating `chainproof doctor --json`. These features have landed in source
-but are not part of v0.6.0 binaries.
+non-mutating `chainproof doctor --json`. Native user services now preserve
+resolved custom ledger, identity, and collector paths across login. Versioned
+structured error envelopes and stable exit classes make failures safe to
+automate. These features have landed in source but are not part of v0.6.0
+binaries.
 
 ## Coming next
 
-- Add stable structured error envelopes and exit codes, preserve custom state through user services, and harden unattended operation
+- Harden unattended operation through independent-process, crash, upgrade, backup, and clean-install tests
 - Add richer native agent integrations beyond Codex
 - Add portable filesystem mission workspaces using structured proof records and generated Markdown views while retaining SQLite for live coordination
 - Deepen the embedded local web explorer across timelines, diffs, artifacts, failures, comparisons, and proof reports
@@ -87,10 +92,11 @@ Roadmap items are direction, not shipped claims or delivery commitments.
 ChainProof supports controlled local pilots with cooperative agents today.
 Before broader unattended use, project plans these release gates:
 
-1. Finish machine-readable automation contracts. Current main ships
+1. Machine-readable automation contract has landed on current main:
    `chainproof capabilities --json`, idempotent `chainproof init --json`, and
-   non-mutating `chainproof doctor --json`; stable exit codes, structured error
-   envelopes, and persistent custom service state remain
+   non-mutating `chainproof doctor --json`, plus versioned structured errors and
+   stable exit classes. Native user services also preserve resolved custom state
+   across login
 2. Independent-process concurrency tests, WAL and forced-termination recovery,
    corrupted-profile and lost-key behavior, upgrades, backup, and restore
 3. Clean macOS and Linux validation of release archives, checksums, installer,
@@ -104,9 +110,8 @@ Target lifecycle:
 
 `discover -> identify -> inspect -> acquire -> work -> checkpoint -> verify -> handoff`
 
-Current identity and bootstrap work should enter next release only after stable
-errors, custom-state service persistence, multi-process and crash tests, and
-clean-install validation pass.
+Current identity, bootstrap, and service-state work should enter next release
+only after multi-process and crash tests plus clean-install validation pass.
 Signed attestations, key recovery, and private multi-host coordination are later
 work. Public exposure of unauthenticated loopback HTTP is not part of autonomous
 readiness.
