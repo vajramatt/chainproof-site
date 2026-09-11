@@ -13,6 +13,7 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - [Continuity specification](https://github.com/vajramatt/chainproof/blob/main/spec/continuity-v1.md): Durable mission checkpoints and portable continuity proofs
 - [Mission workspace specification](https://github.com/vajramatt/chainproof/blob/main/spec/mission-workspace-v1.md): Verified filesystem package with proof, deterministic views, and referenced artifacts
 - [Agent Work Protocol](https://github.com/vajramatt/chainproof/blob/main/spec/agent-work-v1.md): Verified context, environment contract, native Codex work, and queue acquisition
+- [Integration Guide Protocol](https://github.com/vajramatt/chainproof/blob/main/spec/integration-guide-v1.md): Side-effect-free machine-readable lifecycle profiles for agent harnesses
 - [Integration guide](https://github.com/vajramatt/chainproof/blob/main/docs/integrations.md): Automatic discovery, push, pull, wrapping, and adapter guidance
 - [Investigation guide](https://github.com/vajramatt/chainproof/blob/main/docs/investigation.md): Canonical ledger and rebuildable search-index boundary
 - [Security policy](https://github.com/vajramatt/chainproof/blob/main/SECURITY.md): Vulnerability reporting and supported versions
@@ -27,6 +28,7 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - **Can a mission move to another instance?** Current main exports a verified workspace containing canonical proof, deterministic JSONL and Markdown views, manifest checksums, and referenced artifacts; another local instance can verify, atomically import, and resume it.
 - **Can multiple local agents coordinate?** Yes. ChainProof v0.6.0 provides atomic mission acquisition, expiring leases, renewal, release, and handoff.
 - **How does an agent identify itself?** Current main provides self-created, owner-only local profiles with stable key-derived agent IDs, mutable display names, per-run worker IDs, and mission roles.
+- **How does an agent learn the lifecycle?** Run `chainproof integration list`, then `chainproof integration show codex|claude-code|openclaw|generic`. Both commands are side-effect free and emit versioned JSON.
 - **Where does it run?** On macOS or Linux as a local CLI, user service, daemon, or privately hosted process.
 - **Where is data stored?** In a local SQLite ledger with local content-addressed artifacts and verified portable mission workspaces.
 - **Why SQLite?** SQLite provides atomic appends, concurrent local coordination, leases, indexes, and fast queries. Verified mission workspaces are the interchange format; generated JSONL and Markdown are readable views, not canonical coordination state.
@@ -54,6 +56,7 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - Exports portable continuity proofs containing checkpoint history and every anchored run prefix
 - Verifies and atomically imports continuity proofs into another local instance, preserving canonical IDs and hashes, refusing collisions, and rebuilding derived search rows
 - Exports and verifies `chainproof.mission-workspace.v1` directories with continuity proof, deterministic JSONL and Markdown, manifest checksums, and referenced artifact bodies
+- Emits `chainproof.integration-guide.v1` lifecycle, environment, provenance, limitation, and source records for Codex, Claude Code, OpenClaw, and generic harnesses without creating state
 - Stores canonical evidence in a local append-only SQLite ledger
 - Links entries with SHA-256 hashes so post-recording changes are detectable
 - Preserves provenance modes: observed, reported, imported, and derived
@@ -97,6 +100,10 @@ keys, or artifact bodies. These features are not part of v0.6.0 binaries.
 Current main also exports, verifies without initializing state, and atomically
 imports `chainproof.mission-workspace.v1` directories containing canonical
 proof, deterministic views, and referenced content-addressed artifacts.
+It also bundles side-effect-free `chainproof integration list|show` discovery
+for Codex, Claude Code, OpenClaw, and generic harnesses. Each versioned guide
+provides ordered lifecycle commands, environment contract, provenance boundary,
+known limitations, and canonical first-party source.
 
 ## Coming next
 
@@ -130,17 +137,18 @@ Before broader unattended use, project plans these release gates:
 4. Verified structured JSON import and `chainproof.mission-workspace.v1`
    export, offline verification, atomic rebuild, artifact transfer, and resume
    have landed
-5. Agent-readable integration packages for Codex, Claude Code, OpenClaw, and
-   generic harnesses
+5. Agent-readable `chainproof.integration-guide.v1` packages for Codex, Claude
+   Code, OpenClaw, and generic harnesses have landed on current main. Discovery
+   is side-effect free and included in clean-install validation
 
 Target lifecycle:
 
 `discover -> identify -> inspect -> acquire -> work -> checkpoint -> verify -> transfer -> resume`
 
-Current identity, bootstrap, service-state, process-hardening, backup/restore,
-clean-install, structured import, and filesystem workspace work have passed
-their current-main validation gates. Next release can package them while
-integration packaging continues.
+All five current-main source gates have passed: identity and bootstrap,
+service-state and process hardening, backup/restore and clean installation,
+verified import and filesystem workspace transfer, and bundled harness lifecycle
+guides. Next gate is packaging and publishing these capabilities in a release.
 Signed attestations, key recovery, and private multi-host coordination are later
 work. Public exposure of unauthenticated loopback HTTP is not part of autonomous
 readiness.
