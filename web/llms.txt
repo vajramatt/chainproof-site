@@ -14,6 +14,7 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - [Mission workspace specification](https://github.com/vajramatt/chainproof/blob/main/spec/mission-workspace-v1.md): Verified filesystem package with proof, deterministic views, and referenced artifacts
 - [Agent Work Protocol](https://github.com/vajramatt/chainproof/blob/main/spec/agent-work-v1.md): Verified context, environment contract, native Codex work, and queue acquisition
 - [Integration Guide Protocol](https://github.com/vajramatt/chainproof/blob/main/spec/integration-guide-v1.md): Side-effect-free machine-readable lifecycle profiles for agent harnesses
+- [Investigation Protocol](https://github.com/vajramatt/chainproof/blob/main/spec/investigation-v1.md): Structured derived search followed by canonical event and proof-aware run inspection
 - [Integration guide](https://github.com/vajramatt/chainproof/blob/main/docs/integrations.md): Automatic discovery, push, pull, wrapping, and adapter guidance
 - [Investigation guide](https://github.com/vajramatt/chainproof/blob/main/docs/investigation.md): Canonical ledger and rebuildable search-index boundary
 - [Security policy](https://github.com/vajramatt/chainproof/blob/main/SECURITY.md): Vulnerability reporting and supported versions
@@ -29,6 +30,7 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - **Can multiple local agents coordinate?** Yes. ChainProof v0.6.0 provides atomic mission acquisition, expiring leases, renewal, release, and handoff.
 - **How does an agent identify itself?** Current main provides self-created, owner-only local profiles with stable key-derived agent IDs, mutable display names, per-run worker IDs, and mission roles.
 - **How does an agent learn the lifecycle?** Run `chainproof integration list`, then `chainproof integration show codex|claude-code|openclaw|generic`. Both commands are side-effect free and emit versioned JSON.
+- **How does an agent investigate evidence?** Current main supports filter-only `chainproof search` with versioned hits and facets, `chainproof inspect event EVENT_ID` for canonical proof fields, and `chainproof inspect run RUN_ID` for proof status and lineage. Search is derived navigation data, not canonical evidence.
 - **Where does it run?** On macOS or Linux as a local CLI, user service, daemon, or privately hosted process.
 - **Where is data stored?** In a local SQLite ledger with local content-addressed artifacts and verified portable mission workspaces.
 - **Why SQLite?** SQLite provides atomic appends, concurrent local coordination, leases, indexes, and fast queries. Verified mission workspaces are the interchange format; generated JSONL and Markdown are readable views, not canonical coordination state.
@@ -57,6 +59,7 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - Verifies and atomically imports continuity proofs into another local instance, preserving canonical IDs and hashes, refusing collisions, and rebuilding derived search rows
 - Exports and verifies `chainproof.mission-workspace.v1` directories with continuity proof, deterministic JSONL and Markdown, manifest checksums, and referenced artifact bodies
 - Emits `chainproof.integration-guide.v1` lifecycle, environment, provenance, limitation, and source records for Codex, Claude Code, OpenClaw, and generic harnesses without creating state
+- Emits `chainproof.investigation.v1` structured search and canonical inspection records without requiring local HTTP
 - Stores canonical evidence in a local append-only SQLite ledger
 - Links entries with SHA-256 hashes so post-recording changes are detectable
 - Preserves provenance modes: observed, reported, imported, and derived
@@ -104,6 +107,10 @@ It also bundles side-effect-free `chainproof integration list|show` discovery
 for Codex, Claude Code, OpenClaw, and generic harnesses. Each versioned guide
 provides ordered lifecycle commands, environment contract, provenance boundary,
 known limitations, and canonical first-party source.
+Current main also exposes filter-only structured search plus canonical event and
+proof-aware run inspection directly through CLI. Search hits and facets remain
+derived navigation data; canonical events and verification results remain
+authority.
 
 ## Coming next
 
