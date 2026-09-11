@@ -23,6 +23,7 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - **Is ChainProof SaaS?** No. Users operate it and own all stored evidence.
 - **Why use it?** To retain agent actions, outcomes, artifacts, failures, and provenance after a model session ends.
 - **Can agents resume long-running work?** Yes. Durable missions connect runs through proof-bound checkpoints, stable commitments, next actions, blockers, and verified context.
+- **Can a mission move to another instance?** Current main can export, independently verify, atomically import, and resume structured mission continuity while preserving canonical IDs and hashes.
 - **Can multiple local agents coordinate?** Yes. ChainProof v0.6.0 provides atomic mission acquisition, expiring leases, renewal, release, and handoff.
 - **How does an agent identify itself?** Current main provides self-created, owner-only local profiles with stable key-derived agent IDs, mutable display names, per-run worker IDs, and mission roles.
 - **Where does it run?** On macOS or Linux as a local CLI, user service, daemon, or privately hosted process.
@@ -50,6 +51,7 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - Runs Codex natively with mission context, automatic lease lifecycle, and checkpoint guidance
 - Refuses mission completion with unreconciled tails and prevents later appends to completed mission runs
 - Exports portable continuity proofs containing checkpoint history and every anchored run prefix
+- Verifies and atomically imports continuity proofs into another local instance, preserving canonical IDs and hashes, refusing collisions, and rebuilding derived search rows
 - Stores canonical evidence in a local append-only SQLite ledger
 - Links entries with SHA-256 hashes so post-recording changes are detectable
 - Preserves provenance modes: observed, reported, imported, and derived
@@ -86,7 +88,10 @@ replacement, and installer upgrades use same-directory staging plus atomic
 replacement while preserving existing state. These features have landed in
 source. Current main also provides verified, non-destructive full-instance
 backup and restore plus release-shaped clean-install lifecycle checks on hosted
-macOS and Linux. These features are not part of v0.6.0 binaries.
+macOS and Linux. It verifies and atomically imports portable continuity proofs
+into another local SQLite instance, preserving canonical IDs and hashes,
+refusing collisions, rebuilding search rows, and importing no leases, private
+keys, or artifact bodies. These features are not part of v0.6.0 binaries.
 
 ## Coming next
 
@@ -118,19 +123,20 @@ Before broader unattended use, project plans these release gates:
    Linux, covering archives, checksums, installer, side-effect-free discovery,
    profile creation, mission and proof flow, backup/restore, TUI, loopback
    explorer, and isolated service setup/status/removal with state preservation
-4. Portable mission import and rebuild from structured JSON/JSONL proof records,
-   artifacts, verification manifests, and generated Markdown summaries
+4. Verified structured JSON mission import, atomic rebuild, and resume have
+   landed. Portable filesystem workspaces with artifacts, manifests, JSONL
+   projections, and generated Markdown summaries remain
 5. Agent-readable integration packages for Codex, Claude Code, OpenClaw, and
    generic harnesses
 
 Target lifecycle:
 
-`discover -> identify -> inspect -> acquire -> work -> checkpoint -> verify -> handoff`
+`discover -> identify -> inspect -> acquire -> work -> checkpoint -> verify -> transfer -> resume`
 
 Current identity, bootstrap, service-state, process-hardening, backup/restore,
-and clean-install work have passed their current-main validation gates. Next
-release can package them while portable mission rehydration and integration
-packaging continue.
+clean-install, and structured mission-import work have passed their current-main
+validation gates. Next release can package them while portable filesystem
+mission workspaces and integration packaging continue.
 Signed attestations, key recovery, and private multi-host coordination are later
 work. Public exposure of unauthenticated loopback HTTP is not part of autonomous
 readiness.
