@@ -11,6 +11,7 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - [Latest release](https://github.com/vajramatt/chainproof/releases/latest): Current downloadable release
 - [Provenance specification](https://github.com/vajramatt/chainproof/blob/main/spec/provenance-v1.md): Canonical event and proof format
 - [Continuity specification](https://github.com/vajramatt/chainproof/blob/main/spec/continuity-v1.md): Durable mission checkpoints and portable continuity proofs
+- [Mission workspace specification](https://github.com/vajramatt/chainproof/blob/main/spec/mission-workspace-v1.md): Verified filesystem package with proof, deterministic views, and referenced artifacts
 - [Agent Work Protocol](https://github.com/vajramatt/chainproof/blob/main/spec/agent-work-v1.md): Verified context, environment contract, native Codex work, and queue acquisition
 - [Integration guide](https://github.com/vajramatt/chainproof/blob/main/docs/integrations.md): Automatic discovery, push, pull, wrapping, and adapter guidance
 - [Investigation guide](https://github.com/vajramatt/chainproof/blob/main/docs/investigation.md): Canonical ledger and rebuildable search-index boundary
@@ -23,12 +24,12 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - **Is ChainProof SaaS?** No. Users operate it and own all stored evidence.
 - **Why use it?** To retain agent actions, outcomes, artifacts, failures, and provenance after a model session ends.
 - **Can agents resume long-running work?** Yes. Durable missions connect runs through proof-bound checkpoints, stable commitments, next actions, blockers, and verified context.
-- **Can a mission move to another instance?** Current main can export, independently verify, atomically import, and resume structured mission continuity while preserving canonical IDs and hashes.
+- **Can a mission move to another instance?** Current main exports a verified workspace containing canonical proof, deterministic JSONL and Markdown views, manifest checksums, and referenced artifacts; another local instance can verify, atomically import, and resume it.
 - **Can multiple local agents coordinate?** Yes. ChainProof v0.6.0 provides atomic mission acquisition, expiring leases, renewal, release, and handoff.
 - **How does an agent identify itself?** Current main provides self-created, owner-only local profiles with stable key-derived agent IDs, mutable display names, per-run worker IDs, and mission roles.
 - **Where does it run?** On macOS or Linux as a local CLI, user service, daemon, or privately hosted process.
-- **Where is data stored?** In a local SQLite ledger with local content-addressed artifacts and portable proof exports.
-- **Why SQLite?** SQLite provides atomic appends, concurrent local coordination, leases, indexes, and fast queries. Portable structured files are the interchange format; generated Markdown is a readable view, not canonical coordination state.
+- **Where is data stored?** In a local SQLite ledger with local content-addressed artifacts and verified portable mission workspaces.
+- **Why SQLite?** SQLite provides atomic appends, concurrent local coordination, leases, indexes, and fast queries. Verified mission workspaces are the interchange format; generated JSONL and Markdown are readable views, not canonical coordination state.
 - **Does it require cloud access?** No. Core operation needs no account, API key, external service, or network connection.
 - **What is the license?** MIT.
 
@@ -52,6 +53,7 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - Refuses mission completion with unreconciled tails and prevents later appends to completed mission runs
 - Exports portable continuity proofs containing checkpoint history and every anchored run prefix
 - Verifies and atomically imports continuity proofs into another local instance, preserving canonical IDs and hashes, refusing collisions, and rebuilding derived search rows
+- Exports and verifies `chainproof.mission-workspace.v1` directories with continuity proof, deterministic JSONL and Markdown, manifest checksums, and referenced artifact bodies
 - Stores canonical evidence in a local append-only SQLite ledger
 - Links entries with SHA-256 hashes so post-recording changes are detectable
 - Preserves provenance modes: observed, reported, imported, and derived
@@ -92,12 +94,14 @@ macOS and Linux. It verifies and atomically imports portable continuity proofs
 into another local SQLite instance, preserving canonical IDs and hashes,
 refusing collisions, rebuilding search rows, and importing no leases, private
 keys, or artifact bodies. These features are not part of v0.6.0 binaries.
+Current main also exports, verifies without initializing state, and atomically
+imports `chainproof.mission-workspace.v1` directories containing canonical
+proof, deterministic views, and referenced content-addressed artifacts.
 
 ## Coming next
 
 - Package current agent-first capabilities into the next release
 - Add richer native agent integrations beyond Codex
-- Add portable filesystem mission workspaces using structured proof records and generated Markdown views while retaining SQLite for live coordination
 - Deepen the embedded local web explorer across timelines, diffs, artifacts, failures, comparisons, and proof reports
 - Add signed agent attestations, key recovery, and private multi-host coordination while preserving existing proof boundaries
 
@@ -123,9 +127,9 @@ Before broader unattended use, project plans these release gates:
    Linux, covering archives, checksums, installer, side-effect-free discovery,
    profile creation, mission and proof flow, backup/restore, TUI, loopback
    explorer, and isolated service setup/status/removal with state preservation
-4. Verified structured JSON mission import, atomic rebuild, and resume have
-   landed. Portable filesystem workspaces with artifacts, manifests, JSONL
-   projections, and generated Markdown summaries remain
+4. Verified structured JSON import and `chainproof.mission-workspace.v1`
+   export, offline verification, atomic rebuild, artifact transfer, and resume
+   have landed
 5. Agent-readable integration packages for Codex, Claude Code, OpenClaw, and
    generic harnesses
 
@@ -134,9 +138,9 @@ Target lifecycle:
 `discover -> identify -> inspect -> acquire -> work -> checkpoint -> verify -> transfer -> resume`
 
 Current identity, bootstrap, service-state, process-hardening, backup/restore,
-clean-install, and structured mission-import work have passed their current-main
-validation gates. Next release can package them while portable filesystem
-mission workspaces and integration packaging continue.
+clean-install, structured import, and filesystem workspace work have passed
+their current-main validation gates. Next release can package them while
+integration packaging continues.
 Signed attestations, key recovery, and private multi-host coordination are later
 work. Public exposure of unauthenticated loopback HTTP is not part of autonomous
 readiness.
