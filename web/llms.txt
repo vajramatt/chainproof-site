@@ -42,7 +42,7 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - Emits versioned structured CLI failures with stable command, usage, and verification exit classes
 - Fails closed on missing, corrupt, or mismatched established identity material and emits `identity_uninitialized`, `identity_ready`, `identity_incomplete`, or `identity_invalid`
 - Stages checksum-verified installer upgrades beside the binary, then atomically replaces it without changing ledger or identity state
-- Creates and restores `chainproof.backup.v1` full-instance snapshots without overwriting live state; verifies file hashes, SQLite integrity, every run and mission proof chain, artifacts, and identities
+- Creates and restores `chainproof.backup.v1` full-instance snapshots without overwriting live state; verifies file hashes, SQLite integrity, every run and mission proof chain, artifacts, and identities; structured failures use `backup_invalid` or `destination_exists`
 - Coordinates independent event, checkpoint, and full mission lease writes with bounded whole-transaction retries
 - Links runs into durable missions with append-only checkpoints anchored to exact verified run-proof prefixes
 - Compiles bounded verified context for safe resume and exposes uncheckpointed work for explicit recovery review
