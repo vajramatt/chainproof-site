@@ -40,6 +40,8 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - Exposes machine-readable capability discovery, idempotent initialization, and non-mutating diagnostics
 - Preserves resolved custom ledger, identity, and collector paths in native user services across login
 - Emits versioned structured CLI failures with stable command, usage, and verification exit classes
+- Fails closed on missing, corrupt, or mismatched established identity material and emits `identity_uninitialized`, `identity_ready`, `identity_incomplete`, or `identity_invalid`
+- Stages checksum-verified installer upgrades beside the binary, then atomically replaces it without changing ledger or identity state
 - Coordinates independent event, checkpoint, and full mission lease writes with bounded whole-transaction retries
 - Links runs into durable missions with append-only checkpoints anchored to exact verified run-proof prefixes
 - Compiles bounded verified context for safe resume and exposes uncheckpointed work for explicit recovery review
@@ -78,12 +80,14 @@ structured error envelopes and stable exit classes make failures safe to
 automate. Independent-process tests now cover concurrent event, checkpoint, and
 full mission lease writes against one SQLite WAL ledger, including one-winner
 expired-lease recovery and atomic rollback after forced termination during an
-event or checkpoint. These features have landed in source but are not part of
-v0.6.0 binaries.
+event or checkpoint. Damaged identity material now fails closed without silent
+replacement, and installer upgrades use same-directory staging plus atomic
+replacement while preserving existing state. These features have landed in
+source but are not part of v0.6.0 binaries.
 
 ## Coming next
 
-- Harden unattended operation through lost-key, upgrade, backup, and clean-install tests
+- Harden unattended operation through backup, restore, and clean-install tests
 - Add richer native agent integrations beyond Codex
 - Add portable filesystem mission workspaces using structured proof records and generated Markdown views while retaining SQLite for live coordination
 - Deepen the embedded local web explorer across timelines, diffs, artifacts, failures, comparisons, and proof reports
@@ -103,8 +107,9 @@ Before broader unattended use, project plans these release gates:
    across login
 2. Independent-process event, checkpoint, and full lease-lifecycle tests,
    one-winner expired-lease recovery, and atomic rollback after forced event or
-   checkpoint termination have landed on current main. Remaining failure cases
-   include corrupted profiles, lost keys, upgrades, backup, and restore
+   checkpoint termination have landed on current main. Fail-closed identity
+   tests cover missing, corrupt, and mismatched material; installer tests cover
+   atomic upgrade and checksum-failure rollback. Backup and restore remain
 3. Clean macOS and Linux validation of release archives, checksums, installer,
    profile creation, service, TUI, loopback explorer, and uninstall behavior
 4. Portable mission import and rebuild from structured JSON/JSONL proof records,
