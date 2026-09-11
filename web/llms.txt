@@ -30,7 +30,7 @@ ChainProof is created by [Matthew Williamson](https://crossinginto.ai/). Users r
 - **Can multiple local agents coordinate?** Yes. ChainProof v0.6.0 provides atomic mission acquisition, expiring leases, renewal, release, and handoff.
 - **How does an agent identify itself?** Current main provides self-created, owner-only local profiles with stable key-derived agent IDs, mutable display names, per-run worker IDs, and mission roles.
 - **How does an agent learn the lifecycle?** Run `chainproof integration list`, then `chainproof integration show codex|claude-code|openclaw|generic`. Both commands are side-effect free and emit versioned JSON.
-- **How does an agent investigate evidence?** Current main supports filter-only `chainproof search` with versioned hits and facets, `chainproof inspect event EVENT_ID` for canonical proof fields, and `chainproof inspect run RUN_ID` for proof status and lineage. Search is derived navigation data, not canonical evidence.
+- **How does an agent investigate evidence?** Current main supports mission-scoped, filter-only `chainproof search` across runs and sessions, `chainproof inspect event EVENT_ID` for canonical proof fields, and `chainproof inspect run RUN_ID` for proof status and lineage. Search is derived navigation data, not canonical evidence.
 - **Where does it run?** On macOS or Linux as a local CLI, user service, daemon, or privately hosted process.
 - **Where is data stored?** In a local SQLite ledger with local content-addressed artifacts and verified portable mission workspaces.
 - **Why SQLite?** SQLite provides atomic appends, concurrent local coordination, leases, indexes, and fast queries. Verified mission workspaces are the interchange format; generated JSONL and Markdown are readable views, not canonical coordination state.
@@ -107,10 +107,10 @@ It also bundles side-effect-free `chainproof integration list|show` discovery
 for Codex, Claude Code, OpenClaw, and generic harnesses. Each versioned guide
 provides ordered lifecycle commands, environment contract, provenance boundary,
 known limitations, and canonical first-party source.
-Current main also exposes filter-only structured search plus canonical event and
-proof-aware run inspection directly through CLI. Search hits and facets remain
-derived navigation data; canonical events and verification results remain
-authority.
+Current main also exposes mission-scoped, filter-only structured search across
+runs and sessions plus canonical event and proof-aware run inspection directly
+through CLI. Search hits and facets remain derived navigation data; canonical
+events and verification results remain authority.
 
 ## Coming next
 
